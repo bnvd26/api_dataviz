@@ -102,7 +102,13 @@ class ParisController extends AbstractController
     public function create(Request $request)
     {
         $data = $request->getContent();
-        $paris = $this->get('jms_serializer')->deserialize($data, 'App\Entity\Paris', 'json');
+        $paris = new Paris();
+        $data_decoded = json_decode($data, true);
+        $paris->setBorough($data_decoded['borough']);
+        $paris->setLatitude($data_decoded['latitude']);
+        $paris->setLongitude($data_decoded['longitude']);
+        $paris->setDistrict($data_decoded['district']);
+        $paris->setCountHotel($data_decoded['count_hotel']);
         $em = $this->getDoctrine()->getManager();
         $em->persist($paris);
         $em->flush();
