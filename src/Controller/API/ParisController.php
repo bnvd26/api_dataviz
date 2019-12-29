@@ -83,7 +83,6 @@ class ParisController extends AbstractController
             $em->flush();
         }
 
-
         return new RedirectResponse('/api/paris/'.$paris->getId());
     }
 
