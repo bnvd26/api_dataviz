@@ -12,7 +12,6 @@ class UserFixtures extends Fixture
         {
             $user = new User();
             $user->setUsername('parisgo');
-            $user->setEmail('parisgo@hetic.com');
             $user->setPassword('$2y$10$Da7vONvaoTAI8cNDjmRjrOW4DMJuV.HOkiE2tA5tu24YHJaXFEp7O');
             $user->setRoles(['ROLE_ADMIN']);
             $em->persist($user);
