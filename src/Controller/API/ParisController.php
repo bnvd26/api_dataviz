@@ -61,7 +61,7 @@ class ParisController extends AbstractController
     }
 
     /**
-     * @Route("/paris/{id}/edit", name="api_paris_edit", methods={"PUT","PATCH","GET"})
+     * @Route("/paris/{id}/edit", name="api_paris_edit", methods={"PUT","PATCH", "GET"})
      * @param Paris $paris
      * @return Response
      */
@@ -69,15 +69,20 @@ class ParisController extends AbstractController
     {
         $data = $request->getContent();
         $data_decoded = json_decode($data, true);
+
         $paris = $repository->find($paris->getId());
-        $paris->setBorough($data_decoded['borough']);
-        $paris->setLatitude($data_decoded['latitude']);
-        $paris->setLongitude($data_decoded['longitude']);
-        $paris->setDistrict($data_decoded['district']);
-        $paris->setCountHotel($data_decoded['count_hotel']);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($paris);
-        $em->flush();
+
+        if(!empty($data_decoded)) {
+            $paris->setBorough(isset($data_decoded['borough']) ? $data_decoded['borough'] : $paris->getBorough());
+            $paris->setLatitude(isset($data_decoded['latitude']) ? $data_decoded['latitude'] : $paris->getLatitude());
+            $paris->setLongitude(isset($data_decoded['longitude']) ? $data_decoded['longitude'] : $paris->getLongitude());
+            $paris->setDistrict(isset($data_decoded['district']) ? $data_decoded['district'] : $paris->getDistrict());
+            $paris->setCountHotel(isset($data_decoded['count_hotel']) ? $data_decoded['count_hotel'] : $paris->getCountHotel());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($paris);
+            $em->flush();
+        }
+
 
         return new RedirectResponse('/api/paris/'.$paris->getId());
     }
