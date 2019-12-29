@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * @Route("/api")
@@ -60,23 +61,25 @@ class ParisController extends AbstractController
     }
 
     /**
-     * @Route("/paris/{id}/edit", name="api_paris_edit", methods={"PUT","PATCH"})
+     * @Route("/paris/{id}/edit", name="api_paris_edit", methods={"PUT","PATCH","GET"})
      * @param Paris $paris
      * @return Response
      */
-    public function edit(Paris $paris, Request $request)
+    public function edit(Paris $paris, Request $request, ParisRepository $repository)
     {
         $data = $request->getContent();
-        $paris = $this->get('jms_serializer')->deserialize($data, $paris, 'json');
+        $data_decoded = json_decode($data, true);
+        $paris = $repository->find($paris->getId());
+        $paris->setBorough($data_decoded['borough']);
+        $paris->setLatitude($data_decoded['latitude']);
+        $paris->setLongitude($data_decoded['longitude']);
+        $paris->setDistrict($data_decoded['district']);
+        $paris->setCountHotel($data_decoded['count_hotel']);
         $em = $this->getDoctrine()->getManager();
         $em->persist($paris);
         $em->flush();
 
-        $response = new Response($paris);
-
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        return new RedirectResponse('/api/paris/'.$paris->getId());
     }
 
     /**
