@@ -34,7 +34,7 @@ class ParisController extends AbstractController
                 $this->arrayOfParis($details);
         }
 
-        /*$formattedParis = json_encode($formattedParis);*/
+	/*$formattedParis = json_encode($formattedParis);*/
 
         $response = new JsonResponse($formattedParis);
 
@@ -83,7 +83,7 @@ class ParisController extends AbstractController
             $em->flush();
         }
 
-        return new RedirectResponse('/api/paris/'.$paris->getId());
+        return new JsonResponse($paris);
     }
 
     /**
