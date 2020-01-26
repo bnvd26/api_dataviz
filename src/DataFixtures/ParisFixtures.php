@@ -4,6 +4,7 @@
 namespace App\DataFixtures;
 
 
+use App\Entity\Infrastructure;
 use App\Entity\Paris;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -73,7 +74,20 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75007');
             $paris->setLatitude('48.8561744288');
             $paris->setLongitude('2.31218769148');
+
+            $infrastructure = new Infrastructure();
+            $infrastructure->setPlace($paris);
+            $infrastructure->setSports(['Natation en eau libre', 'Triathlon', 'Beach Volley']);
+            $infrastructure->setSite('Tour Eiffel');
+
+            $infrastructure1 = new Infrastructure();
+            $infrastructure1->setPlace($paris);
+            $infrastructure1->setSports(['Tir a l\'arc', 'Volley', 'Badminton', 'Tir']);
+            $infrastructure1->setSite('Esplanade des Invalides');
+
             $em->persist($paris);
+            $em->persist($infrastructure);
+            $em->persist($infrastructure1);
         }
         {
             $paris = new Paris();
@@ -82,7 +96,20 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75008');
             $paris->setLatitude('48.8727208374');
             $paris->setLongitude('2.3125540224');
+
+            $infrastructure = new Infrastructure();
+            $infrastructure->setPlace($paris);
+            $infrastructure->setSports(['Cyclisme sur route']);
+            $infrastructure->setSite('Champs-Elysées');
+
+            $infrastructure1 = new Infrastructure();
+            $infrastructure1->setPlace($paris);
+            $infrastructure1->setSports(['Escrime', 'Taekwondo']);
+            $infrastructure1->setSite('Grand Palais');
+
             $em->persist($paris);
+            $em->persist($infrastructure);
+            $em->persist($infrastructure1);
         }
         {
             $paris = new Paris();
@@ -118,7 +145,14 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75012');
             $paris->setLatitude('48.8349743815');
             $paris->setLongitude('2.42132490078');
+
+            $infrastructure = new Infrastructure();
+            $infrastructure->setPlace($paris);
+            $infrastructure->setSports(['Basket', 'Judo']);
+            $infrastructure->setSite('Bercy - Accor Hotels Arena');
+
             $em->persist($paris);
+            $em->persist($infrastructure);
         }
         {
             $paris = new Paris();
@@ -145,7 +179,14 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75015');
             $paris->setLatitude('48.8400853759');
             $paris->setLongitude('2.29282582242');
+
+            $infrastructure = new Infrastructure();
+            $infrastructure->setPlace($paris);
+            $infrastructure->setSports(['Handball', 'Tennis de table']);
+            $infrastructure->setSite('Parc des expositions de la porte de Versailles');
+
             $em->persist($paris);
+            $em->persist($infrastructure);
         }
         {
             $paris = new Paris();
@@ -154,7 +195,26 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75016');
             $paris->setLatitude('48.8603921054');
             $paris->setLongitude('2.26197078836');
+
+            $infrastructure = new Infrastructure();
+            $infrastructure->setPlace($paris);
+            $infrastructure->setSports(['Football']);
+            $infrastructure->setSite('Parc des princes');
+
+            $infrastructure1 = new Infrastructure();
+            $infrastructure1->setPlace($paris);
+            $infrastructure1->setSports(['Rugby à VII']);
+            $infrastructure1->setSite('Stade Jean Bouin');
+
+            $infrastructure2 = new Infrastructure();
+            $infrastructure2->setPlace($paris);
+            $infrastructure2->setSports(['Tennis']);
+            $infrastructure2->setSite('Rolland-Garros');
+
             $em->persist($paris);
+            $em->persist($infrastructure);
+            $em->persist($infrastructure1);
+            $em->persist($infrastructure2);
         }
         {
             $paris = new Paris();
@@ -172,7 +232,14 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75018');
             $paris->setLatitude('48.892569268');
             $paris->setLongitude('2.34816051956');
+
+            $infrastructure = new Infrastructure();
+            $infrastructure->setPlace($paris);
+            $infrastructure->setSports(['Lutte', 'Basket']);
+            $infrastructure->setSite('Arena II Bercy');
+
             $em->persist($paris);
+            $em->persist($infrastructure);
         }
         {
             $paris = new Paris();
@@ -181,7 +248,14 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75019');
             $paris->setLatitude('48.8870759966');
             $paris->setLongitude('2.38482096015');
+
+            $infrastructure = new Infrastructure();
+            $infrastructure->setPlace($paris);
+            $infrastructure->setSports(['Haltérophilie']);
+            $infrastructure->setSite('Zenith de Paris');
+
             $em->persist($paris);
+            $em->persist($infrastructure);
         }
         {
             $paris = new Paris();
