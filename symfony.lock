@@ -90,6 +90,9 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "fabpot/goutte": {
+        "version": "v4.0.0"
+    },
     "hoa/compiler": {
         "version": "3.17.08.08"
     },
@@ -213,6 +216,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "symfony/browser-kit": {
+        "version": "v5.0.3"
+    },
     "symfony/cache": {
         "version": "v5.0.2"
     },
@@ -235,11 +241,17 @@
             "config/bootstrap.php"
         ]
     },
+    "symfony/css-selector": {
+        "version": "v5.0.3"
+    },
     "symfony/dependency-injection": {
         "version": "v5.0.2"
     },
     "symfony/doctrine-bridge": {
         "version": "v5.0.2"
+    },
+    "symfony/dom-crawler": {
+        "version": "v5.0.3"
     },
     "symfony/dotenv": {
         "version": "v5.0.2"
@@ -290,6 +302,12 @@
             "src/Controller/.gitignore",
             "src/Kernel.php"
         ]
+    },
+    "symfony/http-client": {
+        "version": "v5.0.3"
+    },
+    "symfony/http-client-contracts": {
+        "version": "v2.0.1"
     },
     "symfony/http-foundation": {
         "version": "v5.0.2"
