@@ -41,6 +41,21 @@ class Paris
      */
     private $longitude;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $averageHotelPrice;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $AverageRestaurantPrice;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $subwayStationsNumber;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +117,42 @@ class Paris
     public function setLongitude(?string $longitude): self
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getAverageHotelPrice(): ?int
+    {
+        return $this->averageHotelPrice;
+    }
+
+    public function setAverageHotelPrice(?int $averageHotelPrice): self
+    {
+        $this->averageHotelPrice = $averageHotelPrice;
+
+        return $this;
+    }
+
+    public function getAverageRestaurantPrice(): ?int
+    {
+        return $this->AverageRestaurantPrice;
+    }
+
+    public function setAverageRestaurantPrice(?int $AverageRestaurantPrice): self
+    {
+        $this->AverageRestaurantPrice = $AverageRestaurantPrice;
+
+        return $this;
+    }
+
+    public function getSubwayStationsNumber(): ?int
+    {
+        return $this->subwayStationsNumber;
+    }
+
+    public function setSubwayStationsNumber(?int $subwayStationsNumber): self
+    {
+        $this->subwayStationsNumber = $subwayStationsNumber;
 
         return $this;
     }

@@ -3,6 +3,8 @@
 
 namespace App\Command;
 
+use App\Repository\ParisRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -12,6 +14,17 @@ class GetPriceDataCommand extends Command
 {
 
     protected static $defaultName = 'app:getData';
+
+    protected $em;
+
+    protected $repository;
+
+    public function __construct(EntityManagerInterface $em, ParisRepository $repository)
+    {
+        $this->em = $em;
+        $this->repository = $repository;
+        parent::__construct();
+    }
 
     protected function configure()
     {
@@ -44,7 +57,8 @@ class GetPriceDataCommand extends Command
                     $total += $price;
                 }
             }
-            dump($total/$prices);
+            $current = $this->repository->find($i);
+            $current->setAverageHotelPrice($total/$prices);
         }
 
         // Récupération des prix des restos
@@ -89,7 +103,8 @@ class GetPriceDataCommand extends Command
                 }
                 $total += $price;
             }
-            $priceAverage = $total/$prices;
+            $current = $this->repository->find($i);
+            $current->setAverageRestaurantPrice($total/$prices);
         }
 
         // nombre de stations de métro par arrondissement
@@ -99,8 +114,13 @@ class GetPriceDataCommand extends Command
 
             // le nombre de stations de métro dans un arrondissement
             $stations = \count($crawler->filter('.mw-category-group > ul > li'));
+            $current = $this->repository->find($i);
+            $current->setSubwayStationsNumber($stations);
         }
 
+        $this->em->flush();
+        $output->writeln('Les données ont été ajoutées !');
+        return 0;
     }
 
 }
