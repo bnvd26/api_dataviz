@@ -4,6 +4,7 @@
 namespace App\Controller\API;
 
 
+use App\Entity\Infrastructure;
 use App\Entity\Paris;
 use App\Repository\ParisRepository;
 use JMS\Serializer\SerializerInterface;
@@ -125,11 +126,24 @@ class ParisController extends AbstractController
 
     public function arrayOfParis($object)
     {
+        $formattedInfrastructure = [];
+
+        foreach($object->getInfrastructures() as $relation )
+        {
+            $formattedInfrastructure[] = [
+                'site' => $relation->getSite(),
+                'sports' => $relation->getSports(),
+            ];
+        }
+
         return [
             'id' => $object->getId(),
             'district' => $object->getDistrict(),
             'borough' => $object->getBorough(),
             'nb_hotels' => $object->getCountHotel(),
+            'infrastructure'  =>  [
+                $formattedInfrastructure
+            ],
             'googleMaps' => [
                 'type' => 'point',
                 'longitude' => $object->getLongitude(),

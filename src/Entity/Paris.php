@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,6 +57,16 @@ class Paris
      * @ORM\Column(type="integer", nullable=true)
      */
     private $subwayStationsNumber;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Infrastructure", mappedBy="place")
+     */
+    private $infrastructures;
+
+    public function __construct()
+    {
+        $this->infrastructures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -129,8 +141,22 @@ class Paris
     public function setAverageHotelPrice(?int $averageHotelPrice): self
     {
         $this->averageHotelPrice = $averageHotelPrice;
-
         return $this;
+    }
+    /**
+     * @return Collection|Infrastructure[]
+     */
+    public function getInfrastructures(): Collection
+    {
+        return $this->infrastructures;
+    }
+
+    public function addInfrastructure(Infrastructure $infrastructure): self
+    {
+        if (!$this->infrastructures->contains($infrastructure)) {
+            $this->infrastructures[] = $infrastructure;
+            $infrastructure->setPlace($this);
+        }
     }
 
     public function getAverageRestaurantPrice(): ?int
@@ -153,8 +179,17 @@ class Paris
     public function setSubwayStationsNumber(?int $subwayStationsNumber): self
     {
         $this->subwayStationsNumber = $subwayStationsNumber;
-
         return $this;
     }
 
+    public function removeInfrastructure(Infrastructure $infrastructure): self
+    {
+        if ($this->infrastructures->contains($infrastructure)) {
+            $this->infrastructures->removeElement($infrastructure);
+            // set the owning side to null (unless already changed)
+            if ($infrastructure->getPlace() === $this) {
+                $infrastructure->setPlace(null);
+            }
+        }
+    }
 }
