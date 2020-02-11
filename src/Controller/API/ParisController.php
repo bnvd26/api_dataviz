@@ -137,6 +137,8 @@ class ParisController extends AbstractController
             ];
         }
 
+
+
         return [
             'id' => $object->getId(),
             'district' => $object->getDistrict(),
@@ -148,7 +150,8 @@ class ParisController extends AbstractController
             'googleMaps' => [
                 'type' => 'point',
                 'longitude' => $object->getLongitude(),
-                'latitude' =>$object->getLatitude()
+                'latitude' =>$object->getLatitude(),
+                'polygon' => $object->getPolygon()
             ]
         ];
     }

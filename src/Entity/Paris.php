@@ -158,7 +158,7 @@ class Paris
     {
         $polygon = $this->polygon;
 
-        return array_unique($polygon);
+        return $polygon;
     }
 
     public function setPolygon(array $polygon): self
