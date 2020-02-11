@@ -57,7 +57,7 @@ class GetPriceDataCommand extends Command
                     $total += $price;
                 }
             }
-            $current = $this->repository->find($i);
+            $current = $this->repository->findByDistrict(75000+$i);
             $current->setAverageHotelPrice($total/$prices);
         }
 
@@ -103,7 +103,7 @@ class GetPriceDataCommand extends Command
                 }
                 $total += $price;
             }
-            $current = $this->repository->find($i);
+            $current = $this->repository->findByDistrict(75000+$i);
             $current->setAverageRestaurantPrice($total/$prices);
         }
 
@@ -114,7 +114,7 @@ class GetPriceDataCommand extends Command
 
             // le nombre de stations de métro dans un arrondissement
             $stations = \count($crawler->filter('.mw-category-group > ul > li'));
-            $current = $this->repository->find($i);
+            $current = $this->repository->findByDistrict(75000+$i);
             $current->setSubwayStationsNumber($stations);
         }
 
