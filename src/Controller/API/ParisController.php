@@ -8,6 +8,7 @@ use App\Entity\Infrastructure;
 use App\Entity\Paris;
 use App\Repository\ParisRepository;
 use JMS\Serializer\SerializerInterface;
+use stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +36,7 @@ class ParisController extends AbstractController
                 $this->arrayOfParis($details);
         }
 
-        /*$formattedParis = json_encode($formattedParis);*/
+        // $formattedParis = json_decode($formattedParis);
 
         $response = new JsonResponse($formattedParis);
 
@@ -141,9 +142,9 @@ class ParisController extends AbstractController
             'district' => $object->getDistrict(),
             'borough' => $object->getBorough(),
             'nb_hotels' => $object->getCountHotel(),
-            'infrastructure'  =>  [
-                $formattedInfrastructure
-            ],
+            'infrastructure'  =>
+                (object) $formattedInfrastructure
+            ,
             'googleMaps' => [
                 'type' => 'point',
                 'longitude' => $object->getLongitude(),

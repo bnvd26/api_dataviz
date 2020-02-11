@@ -44,6 +44,11 @@ class Paris
     private $longitude;
 
     /**
+     * @ORM\Column(type="json")
+     */
+    private $polygon = [];
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Infrastructure", mappedBy="place")
      */
     private $infrastructures;
@@ -145,6 +150,20 @@ class Paris
                 $infrastructure->setPlace(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPolygon(): array
+    {
+        $polygon = $this->polygon;
+
+        return array_unique($polygon);
+    }
+
+    public function setPolygon(array $polygon): self
+    {
+        $this->polygon = $polygon;
 
         return $this;
     }
