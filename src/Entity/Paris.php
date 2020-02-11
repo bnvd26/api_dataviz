@@ -63,9 +63,15 @@ class Paris
      */
     private $infrastructures;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\SubwayLine", mappedBy="boroughs")
+     */
+    private $subwayLines;
+
     public function __construct()
     {
         $this->infrastructures = new ArrayCollection();
+        $this->subwayLines = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -191,5 +197,33 @@ class Paris
                 $infrastructure->setPlace(null);
             }
         }
+    }
+
+    /**
+     * @return Collection|SubwayLine[]
+     */
+    public function getSubwayLines(): Collection
+    {
+        return $this->subwayLines;
+    }
+
+    public function addSubwayLine(SubwayLine $subwayLine): self
+    {
+        if (!$this->subwayLines->contains($subwayLine)) {
+            $this->subwayLines[] = $subwayLine;
+            $subwayLine->addBorough($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubwayLine(SubwayLine $subwayLine): self
+    {
+        if ($this->subwayLines->contains($subwayLine)) {
+            $this->subwayLines->removeElement($subwayLine);
+            $subwayLine->removeBorough($this);
+        }
+
+        return $this;
     }
 }
