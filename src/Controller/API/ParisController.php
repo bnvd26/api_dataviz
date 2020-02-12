@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use Swagger\Annotations as SWG;
 
 /**
  * @Route("/api")
@@ -24,6 +27,13 @@ class ParisController extends AbstractController
      * @Route("/paris", name="paris", methods="GET")
      * @param ParisRepository $repository
      * @return Response
+     * @SWG\Response(
+     *     response=200,
+     *     description="Return informations about every boroughs of Paris.",
+     *     @Model(type=\App\Entity\Paris::class),
+     * )
+     * @SWG\Tag(name="Paris boroughs")
+     * @Security(name="Bearer")
      */
     public function index(ParisRepository $repository)
     {
@@ -49,6 +59,19 @@ class ParisController extends AbstractController
      * @Route("/paris/{id}", name="api_paris_show", methods={"GET","HEAD"})
      * @param Paris $paris
      * @return Response
+     * @SWG\Response(
+     *     response=200,
+     *     description="Return informations about one borough of Paris.",
+     *     @Model(type=\App\Entity\Paris::class),
+     * )
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     type="integer",
+     *     description="The field used to get the borough."
+     * )
+     * @SWG\Tag(name="Paris boroughs")
+     * @Security(name="Bearer")
      */
     public function show(Paris $paris)
     {
@@ -65,6 +88,19 @@ class ParisController extends AbstractController
      * @Route("/paris/{id}/edit", name="api_paris_edit", methods={"PUT","PATCH", "GET"})
      * @param Paris $paris
      * @return Response
+     * @SWG\Response(
+     *     response=200,
+     *     description="Update informations about a borough.",
+     *     @Model(type=\App\Entity\Paris::class),
+     * )
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     type="integer",
+     *     description="The field used to get the borough."
+     * )
+     * @SWG\Tag(name="Paris boroughs")
+     * @Security(name="Bearer")
      */
     public function edit(Paris $paris, Request $request, ParisRepository $repository)
     {
@@ -91,6 +127,19 @@ class ParisController extends AbstractController
      * @Route("/paris/{id}/delete", name="api_paris_delete", methods="DELETE")
      * @param \App\Entity\Paris $paris
      * @return Response
+     * @SWG\Response(
+     *     response=200,
+     *     description="Delete a borough.",
+     *     @Model(type=\App\Entity\Paris::class),
+     * )
+     * @SWG\Parameter(
+     *      name="id",
+     *      in="path",
+     *      type="integer",
+     *      description="The field used to get the borough."
+     * )
+     * @SWG\Tag(name="Paris boroughs")
+     * @Security(name="Bearer")
      */
     public function delete($id, ParisRepository $repo)
     {
@@ -106,6 +155,48 @@ class ParisController extends AbstractController
      * @Route("/paris/create", name="api_paris_create", methods="POST")
      * @param Request $request
      * @return JsonResponse
+     * @SWG\Response(
+     *     response=200,
+     *     description="Delete a borough.",
+     *     @Model(type=\App\Entity\Paris::class),
+     * )
+     * @SWG\Parameter(
+     *      name="borough",
+     *      in="query",
+     *      type="integer",
+     *      description="Zip code of the borough.",
+     *      required=true,
+     * )
+     * @SWG\Parameter(
+     *      name="latitude",
+     *      in="query",
+     *      type="number",
+     *      description="Latitude of the borough.",
+     *      required=true,
+     * )
+     * @SWG\Parameter(
+     *      name="longitude",
+     *      in="query",
+     *      type="number",
+     *      description="Longitude of the borough.",
+     *      required=true,
+     * )
+     * @SWG\Parameter(
+     *      name="district",
+     *      in="query",
+     *      type="string",
+     *      description="District of the borough.",
+     *      required=true,
+     * )
+     * @SWG\Parameter(
+     *      name="count_hotel",
+     *      in="query",
+     *      type="string",
+     *      description="Set the number of hotels in the borough.",
+     *      required=true,
+     * )
+     * @SWG\Tag(name="Paris boroughs")
+     * @Security(name="Bearer")
      */
     public function create(Request $request)
     {

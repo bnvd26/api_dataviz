@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Swagger\Annotations as SWG;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\InfrastructureRepository")
@@ -23,6 +24,7 @@ class Infrastructure
 
     /**
      * @ORM\Column(type="json")
+     * @SWG\Property(type="array", @SWG\Items(type="string"))
      */
     private $sports = [];
 
