@@ -11,6 +11,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class ParisFixtures extends Fixture
 {
+
+    // @ TODO fixtures for polygon (longitude et latitude)
+
     public function load(ObjectManager $em)
     {
         {
