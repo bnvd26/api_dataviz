@@ -36,12 +36,21 @@ class ParisController extends AbstractController
      * @SWG\Tag(name="Paris boroughs")
      * @Security(name="Bearer")
      */
-    public function index(ParisRepository $repository)
+    public function index(ParisRepository $repository, Request $request)
     {
-        $paris = $repository->findAll();
+        if ($request->query->get('maxPrice')) {
+            $maxPrice = $request->query->get('maxPrice');
+            // if a maximum price is set, we send boroughs in our budget
+            $paris = $repository->findWhenCheaperThan($maxPrice);
+        } elseif ($request->query->get('order') === 'desc') {
+            // sent boroughs sort per costPerDay
+            $paris = $repository->findBy([], ['costPerDay' => 'DESC']);
+        } else {
+            // if we don't specify any parameter
+            $paris = $repository->findAll();
+        }
 
-        foreach($paris as $details)
-        {
+        foreach ($paris as $details) {
             $formattedParis[] =
                 $this->arrayOfParis($details);
         }
@@ -216,6 +225,7 @@ class ParisController extends AbstractController
         return new JsonResponse(['Success'=>'Items was created.'], Response::HTTP_CREATED);
     }
 
+    /** @var $object Paris */
     public function arrayOfParis($object)
     {
         $formattedInfrastructure = [];
@@ -228,13 +238,19 @@ class ParisController extends AbstractController
             ];
         }
 
-
+        $lines = [];
+        foreach($object->getSubwayLines() as $line) {
+            $lines[] = $line->getName();
+        }
 
         return [
             'id' => $object->getId(),
             'district' => $object->getDistrict(),
             'borough' => $object->getBorough(),
             'nb_hotels' => $object->getCountHotel(),
+            'average_hotel_price' => $object->getAverageHotelPrice(),
+            'average_restaurant_price' => $object->getAverageRestaurantPrice(),
+            'average_cost_per_day' => $object->getCostPerDay(),
             'infrastructure'  =>
                 (object) $formattedInfrastructure
             ,
@@ -243,7 +259,8 @@ class ParisController extends AbstractController
                 'longitude' => $object->getLongitude(),
                 'latitude' =>$object->getLatitude(),
                 'polygon' => $object->getPolygon()
-            ]
+            ],
+            'lines' => $lines,
         ];
     }
 }

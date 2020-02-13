@@ -58,4 +58,16 @@ class ParisRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
             ;
     }
+
+    public function findWhenCheaperThan($price)
+    {
+        return $this
+            ->createQueryBuilder('c')
+            ->where('c.costPerDay <= :price')
+            ->setParameter('price', $price)
+            ->orderBy('c.costPerDay', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
