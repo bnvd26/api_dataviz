@@ -56,6 +56,11 @@ class Paris
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
+    private $costPerDay;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
     private $subwayStationsNumber;
 
     /**
@@ -186,6 +191,16 @@ class Paris
     {
         $this->subwayStationsNumber = $subwayStationsNumber;
         return $this;
+    }
+
+    public function getCostPerDay(): ?int
+    {
+        return $this->costPerDay;
+    }
+
+    public function setCostPerDay(?int $costPerDay): void
+    {
+        $this->costPerDay = $costPerDay;
     }
 
     public function removeInfrastructure(Infrastructure $infrastructure): self

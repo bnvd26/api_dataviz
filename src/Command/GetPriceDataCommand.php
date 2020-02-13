@@ -59,6 +59,7 @@ class GetPriceDataCommand extends Command
             }
             $current = $this->repository->findByDistrict(75000+$i);
             $current->setAverageHotelPrice($total/$prices);
+            $current->setCostPerDay($total/$prices);
         }
 
         // Récupération des prix des restos
@@ -105,6 +106,8 @@ class GetPriceDataCommand extends Command
             }
             $current = $this->repository->findByDistrict(75000+$i);
             $current->setAverageRestaurantPrice($total/$prices);
+            $cost = $current->getCostPerDay();
+            $current->setCostPerDay($cost + $total/$prices);
         }
 
         // nombre de stations de métro par arrondissement
