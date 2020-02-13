@@ -44,6 +44,7 @@ class Paris
     private $longitude;
 
     /**
+<<<<<<< HEAD
      * @ORM\Column(type="integer", nullable=true)
      */
     private $averageHotelPrice;
@@ -62,6 +63,11 @@ class Paris
      * @ORM\Column(type="integer", nullable=true)
      */
     private $subwayStationsNumber;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $polygon = [];
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Infrastructure", mappedBy="place")
@@ -238,6 +244,20 @@ class Paris
             $this->subwayLines->removeElement($subwayLine);
             $subwayLine->removeBorough($this);
         }
+
+        return $this;
+    }
+
+    public function getPolygon(): array
+    {
+        $polygon = $this->polygon;
+
+        return $polygon;
+    }
+
+    public function setPolygon(array $polygon): self
+    {
+        $this->polygon = $polygon;
 
         return $this;
     }
