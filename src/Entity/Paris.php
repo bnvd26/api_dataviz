@@ -31,20 +31,9 @@ class Paris
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $countHotel;
+    private $prefix;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $latitude;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $longitude;
-
-    /**
-<<<<<<< HEAD
      * @ORM\Column(type="integer", nullable=true)
      */
     private $averageHotelPrice;
@@ -63,11 +52,6 @@ class Paris
      * @ORM\Column(type="integer", nullable=true)
      */
     private $subwayStationsNumber;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $polygon = [];
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Infrastructure", mappedBy="place")
@@ -114,38 +98,14 @@ class Paris
         return $this;
     }
 
-    public function getCountHotel(): ?string
+    public function getPrefix(): ?string
     {
-        return $this->countHotel;
+        return $this->prefix;
     }
 
-    public function setCountHotel(?string $countHotel): self
+    public function setPrefix(?string $prefix): self
     {
-        $this->countHotel = $countHotel;
-
-        return $this;
-    }
-
-    public function getLatitude(): ?string
-    {
-        return $this->latitude;
-    }
-
-    public function setLatitude(?string $latitude): self
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    public function getLongitude(): ?string
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(?string $longitude): self
-    {
-        $this->longitude = $longitude;
+        $this->prefix = $prefix;
 
         return $this;
     }
@@ -244,20 +204,6 @@ class Paris
             $this->subwayLines->removeElement($subwayLine);
             $subwayLine->removeBorough($this);
         }
-
-        return $this;
-    }
-
-    public function getPolygon(): array
-    {
-        $polygon = $this->polygon;
-
-        return $polygon;
-    }
-
-    public function setPolygon(array $polygon): self
-    {
-        $this->polygon = $polygon;
 
         return $this;
     }
