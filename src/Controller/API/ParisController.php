@@ -254,7 +254,7 @@ class ParisController extends AbstractController
             'infrastructure'  =>
                 (object) $formattedInfrastructure
             ,
-            'googleMaps' => [
+            'map' => [
                 'type' => 'point',
                 'longitude' => $object->getLongitude(),
                 'latitude' =>$object->getLatitude(),
