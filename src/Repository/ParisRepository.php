@@ -53,8 +53,9 @@ class ParisRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->where('c.borough = :borough')
             ->setParameter('borough', $borough)
+            ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
             ;
     }
 }

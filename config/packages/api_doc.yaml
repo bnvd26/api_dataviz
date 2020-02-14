@@ -1,0 +1,18 @@
+nelmio_api_doc:
+  areas:
+    path_patterns: [ ^/api ]
+  documentation:
+    host: api.example.com
+    schemes: [http, https]
+    info:
+      title: ParisGo API
+      description: ParisGo API documentation
+      version: 1.0.0
+    securityDefinitions:
+      Bearer:
+        type: apiKey
+        description: 'Value: Bearer {jwt}'
+        name: Authorization
+        in: header
+    security:
+      - Bearer: []

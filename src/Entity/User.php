@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Swagger\Annotations as SWG;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -24,6 +25,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="json")
+     * @SWG\Property(type="array", @SWG\Items(type="string"))
      */
     private $roles = [];
 
@@ -32,6 +34,11 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @SWG\Property(type="")
+     */
+    private $salt;
 
     public function getId(): ?int
     {
