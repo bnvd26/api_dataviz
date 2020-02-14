@@ -44,6 +44,11 @@ class Paris
     private $longitude;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $prefix;
+
+    /**
      * @ORM\Column(type="json")
      */
     private $polygon = [];
@@ -71,6 +76,18 @@ class Paris
     public function setDistrict(?string $district): self
     {
         $this->district = $district;
+
+        return $this;
+    }
+
+    public function getPrefix(): ?string
+    {
+        return $this->prefix;
+    }
+
+    public function setPrefix(?string $prefix): self
+    {
+        $this->prefix = $prefix;
 
         return $this;
     }

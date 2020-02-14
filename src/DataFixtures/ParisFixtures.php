@@ -23,6 +23,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75001');
             $paris->setLatitude('48.8625627018');
             $paris->setLongitude('2.33644336205');
+            $paris->setPrefix('1er');
             $em->persist($paris);
         }
         {
@@ -32,6 +33,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75002');
             $paris->setLatitude('48.8682792225');
             $paris->setLongitude('2.34280254689');
+            $paris->setPrefix('2e');
             $em->persist($paris);
         }
         {
@@ -41,6 +43,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75003');
             $paris->setLatitude('48.86287238');
             $paris->setLongitude('2.3600009859');
+            $paris->setPrefix('3e');
             $em->persist($paris);
         }
         {
@@ -50,6 +53,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75004');
             $paris->setLatitude('48.8543414263');
             $paris->setLongitude('2.35762962032');
+            $paris->setPrefix('4e');
             $em->persist($paris);
         }
         {
@@ -59,6 +63,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75005');
             $paris->setLatitude('48.8444431505');
             $paris->setLongitude('2.35071460958');
+            $paris->setPrefix('5e');
             $em->persist($paris);
         }
         {
@@ -68,6 +73,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75006');
             $paris->setLatitude('48.8491303586');
             $paris->setLongitude('2.33289799905');
+            $paris->setPrefix('6e');
             $em->persist($paris);
         }
         {
@@ -77,6 +83,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75007');
             $paris->setLatitude('48.8561744288');
             $paris->setLongitude('2.31218769148');
+            $paris->setPrefix('7e');
 
             $infrastructure = new Infrastructure();
             $infrastructure->setPlace($paris);
@@ -99,6 +106,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75008');
             $paris->setLatitude('48.8727208374');
             $paris->setLongitude('2.3125540224');
+            $paris->setPrefix('8e');
 
             $infrastructure = new Infrastructure();
             $infrastructure->setPlace($paris);
@@ -121,6 +129,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75009');
             $paris->setLatitude('48.8771635173');
             $paris->setLongitude('2.33745754348');
+            $paris->setPrefix('9e');
             $em->persist($paris);
         }
         {
@@ -130,6 +139,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75010');
             $paris->setLatitude('48.8761300365');
             $paris->setLongitude('2.36072848785');
+            $paris->setPrefix('10e');
             $em->persist($paris);
         }
         {
@@ -139,6 +149,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75011');
             $paris->setLatitude('48.8590592213');
             $paris->setLongitude('2.3800583082');
+            $paris->setPrefix('11e');
             $em->persist($paris);
         }
         {
@@ -148,6 +159,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75012');
             $paris->setLatitude('48.8349743815');
             $paris->setLongitude('2.42132490078');
+            $paris->setPrefix('12e');
 
             $infrastructure = new Infrastructure();
             $infrastructure->setPlace($paris);
@@ -164,6 +176,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75013');
             $paris->setLatitude('48.8283880317');
             $paris->setLongitude('2.36227244042');
+            $paris->setPrefix('13e');
             $em->persist($paris);
         }
         {
@@ -173,6 +186,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75014');
             $paris->setLatitude('48.8292445005');
             $paris->setLongitude('2.3265420442');
+            $paris->setPrefix('14e');
             $em->persist($paris);
         }
         {
@@ -182,6 +196,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75015');
             $paris->setLatitude('48.8400853759');
             $paris->setLongitude('2.29282582242');
+            $paris->setPrefix('15e');
 
             $infrastructure = new Infrastructure();
             $infrastructure->setPlace($paris);
@@ -198,6 +213,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75016');
             $paris->setLatitude('48.8603921054');
             $paris->setLongitude('2.26197078836');
+            $paris->setPrefix('16e');
 
             $infrastructure = new Infrastructure();
             $infrastructure->setPlace($paris);
@@ -226,6 +242,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75017');
             $paris->setLatitude('48.887326522');
             $paris->setLongitude('2.30677699057');
+            $paris->setPrefix('17e');
             $em->persist($paris);
         }
         {
@@ -235,6 +252,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75018');
             $paris->setLatitude('48.892569268');
             $paris->setLongitude('2.34816051956');
+            $paris->setPrefix('18e');
 
             $infrastructure = new Infrastructure();
             $infrastructure->setPlace($paris);
@@ -251,6 +269,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75019');
             $paris->setLatitude('48.8870759966');
             $paris->setLongitude('2.38482096015');
+            $paris->setPrefix('19e');
 
             $infrastructure = new Infrastructure();
             $infrastructure->setPlace($paris);
@@ -267,6 +286,7 @@ class ParisFixtures extends Fixture
             $paris->setBorough('75020');
             $paris->setLatitude('48.8634605789');
             $paris->setLongitude('2.40118812928');
+            $paris->setPrefix('20e');
             $em->persist($paris);
         }
 

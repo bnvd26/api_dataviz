@@ -124,7 +124,7 @@ class ParisController extends AbstractController
 
         return new JsonResponse(['Success'=>'Items was created.'], Response::HTTP_CREATED);
     }
-
+    
 
     public function arrayOfParis($object)
     {
@@ -145,21 +145,20 @@ class ParisController extends AbstractController
             'district' => $object->getDistrict(),
             'borough' => $object->getBorough(),
             'nb_hotels' => $object->getCountHotel(),
-            'prefix' => $object->getPrefix(),
             'infrastructure'  =>
                 (object) $formattedInfrastructure
             ,
             "type" => "FeatureCollection",
             'googleMaps' => [
-
+                
                 // 'longitude' => $object->getLongitude(),
                 // 'latitude' =>$object->getLatitude(),
                 "type" => "Feature",
                 'geometry' => [
-
+                    
                     "type" => "Polygon",
                     "coordinates" => $object->getPolygon()
-
+                    
                 ]
             ]
         ];
