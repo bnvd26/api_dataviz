@@ -2,7 +2,7 @@ nelmio_api_doc:
   areas:
     path_patterns: [ ^/api ]
   documentation:
-    host: api.example.com
+    host: https://dataviz-api.benjaminadida.fr
     schemes: [http, https]
     info:
       title: ParisGo API
