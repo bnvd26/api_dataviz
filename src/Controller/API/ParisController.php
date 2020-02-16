@@ -225,7 +225,6 @@ class ParisController extends AbstractController
         return new JsonResponse(['Success'=>'Items was created.'], Response::HTTP_CREATED);
     }
 
-    /** @var $object Paris */
     public function arrayOfParis($object)
     {
         $formattedInfrastructure = [];
@@ -252,7 +251,7 @@ class ParisController extends AbstractController
             'average_restaurant_price' => $object->getAverageRestaurantPrice(),
             'average_cost_per_day' => $object->getCostPerDay(),
             'infrastructure'  =>
-                (object) $formattedInfrastructure
+                $formattedInfrastructure
             ,
             'lines' => $lines,
         ];
