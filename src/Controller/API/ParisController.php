@@ -40,8 +40,21 @@ class ParisController extends AbstractController
     {
         if ($request->query->get('maxPrice')) {
             $maxPrice = $request->query->get('maxPrice');
+            $limitPrice = $maxPrice * 1.10;
+            $paris = [];
+            $index = 0;
+
             // if a maximum price is set, we send boroughs in our budget
-            $paris = $repository->findWhenCheaperThan($maxPrice);
+            $paris[] = $repository->findWhenCheaperThan($maxPrice);
+            $paris[] = $repository->FindBetween($maxPrice, $limitPrice);
+            $paris[] = $repository->findMoreExpensive($limitPrice);
+            foreach ($paris as $slice) {
+                foreach ($slice as $details) {
+                    $formattedParis[] =
+                        $this->arrayOfParis($details, $index);
+                }
+                $index++;
+            }
         } elseif ($request->query->get('order') === 'desc') {
             // sent boroughs sort per costPerDay
             $paris = $repository->findBy([], ['costPerDay' => 'DESC']);
@@ -50,10 +63,13 @@ class ParisController extends AbstractController
             $paris = $repository->findAll();
         }
 
-        foreach ($paris as $details) {
-            $formattedParis[] =
-                $this->arrayOfParis($details);
+        if (!$request->query->get('maxPrice')) {
+            foreach ($paris as $details) {
+                $formattedParis[] =
+                    $this->arrayOfParis($details);
+            }
         }
+
 
         // $formattedParis = json_decode($formattedParis);
 
@@ -225,9 +241,27 @@ class ParisController extends AbstractController
         return new JsonResponse(['Success'=>'Items was created.'], Response::HTTP_CREATED);
     }
 
-    public function arrayOfParis($object)
+
+    /**
+     *
+     * @param $object
+     * @param null $index
+     * @return array
+     */
+    public function arrayOfParis($object, $index = null)
+
     {
         $formattedInfrastructure = [];
+
+        if($index === 0) {
+            $index = '#5DD167';
+        } elseif($index === 1){
+            $index = '#FFCA0C';
+        } elseif($index === 2) {
+            $index = '#F77700';
+        } else {
+            $index = null;
+        }
 
         foreach($object->getInfrastructures() as $relation )
         {
@@ -249,7 +283,7 @@ class ParisController extends AbstractController
 
         return [
             'id' => $object->getId(),
-            'color' => 'ok',
+            'colorPrice' => $index,
             'district' => $object->getDistrict(),
             'borough' => $object->getBorough(),
             'prefix' => $object->getPrefix(),
