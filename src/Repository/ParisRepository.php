@@ -70,4 +70,29 @@ class ParisRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    public function FindBetween($price, $limitPrice)
+    {
+        return $this
+            ->createQueryBuilder('c')
+            ->where('c.costPerDay BETWEEN :price AND :limitPrice')
+            ->setParameter('price', $price)
+            ->setParameter('limitPrice', $limitPrice)
+            ->orderBy('c.costPerDay', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findMoreExpensive($price)
+    {
+        return $this
+            ->createQueryBuilder('c')
+            ->where('c.costPerDay >= :price')
+            ->setParameter('price', $price)
+            ->orderBy('c.costPerDay', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

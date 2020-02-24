@@ -40,8 +40,21 @@ class ParisController extends AbstractController
     {
         if ($request->query->get('maxPrice')) {
             $maxPrice = $request->query->get('maxPrice');
+            $limitPrice = $maxPrice * 1.10;
+            $paris = [];
+            $index = 0;
+
             // if a maximum price is set, we send boroughs in our budget
-            $paris = $repository->findWhenCheaperThan($maxPrice);
+            $paris[] = $repository->findWhenCheaperThan($maxPrice);
+            $paris[] = $repository->FindBetween($maxPrice, $limitPrice);
+            $paris[] = $repository->findMoreExpensive($limitPrice);
+            foreach ($paris as $slice) {
+                foreach ($slice as $details) {
+                    $formattedParis[] =
+                        $this->arrayOfParis($details, $index);
+                }
+                $index++;
+            }
         } elseif ($request->query->get('order') === 'desc') {
             // sent boroughs sort per costPerDay
             $paris = $repository->findBy([], ['costPerDay' => 'DESC']);
@@ -50,10 +63,13 @@ class ParisController extends AbstractController
             $paris = $repository->findAll();
         }
 
-        foreach ($paris as $details) {
-            $formattedParis[] =
-                $this->arrayOfParis($details);
+        if (!$request->query->get('maxPrice')) {
+            foreach ($paris as $details) {
+                $formattedParis[] =
+                    $this->arrayOfParis($details);
+            }
         }
+
 
         // $formattedParis = json_decode($formattedParis);
 
@@ -226,7 +242,7 @@ class ParisController extends AbstractController
     }
 
     /** @var $object Paris */
-    public function arrayOfParis($object)
+    public function arrayOfParis($object, $index = null)
     {
         $formattedInfrastructure = [];
 
@@ -245,6 +261,7 @@ class ParisController extends AbstractController
 
         return [
             'id' => $object->getId(),
+            'index' => $index,
             'district' => $object->getDistrict(),
             'borough' => $object->getBorough(),
             'prefix' => $object->getPrefix(),
