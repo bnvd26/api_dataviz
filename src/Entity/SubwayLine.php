@@ -24,6 +24,11 @@ class SubwayLine
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $lineLogo;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Paris", inversedBy="subwayLines")
      */
     private $boroughs;
@@ -46,6 +51,18 @@ class SubwayLine
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getLineLogo(): ?string
+    {
+        return $this->lineLogo;
+    }
+
+    public function setLineLogo(string $lineLogo): self
+    {
+        $this->lineLogo = $lineLogo;
 
         return $this;
     }

@@ -231,19 +231,25 @@ class ParisController extends AbstractController
 
         foreach($object->getInfrastructures() as $relation )
         {
+
             $formattedInfrastructure[] = [
                 'site' => $relation->getSite(),
                 'sports' => $relation->getSports(),
+                'logo_path' =>$relation->getPathLogo()
             ];
         }
 
         $lines = [];
         foreach($object->getSubwayLines() as $line) {
-            $lines[] = $line->getName();
+            $lines[] = [
+                'number' => $line->getName(),
+                'line_logo' => $line->getLineLogo()
+            ];
         }
 
         return [
             'id' => $object->getId(),
+            'color' => 'ok',
             'district' => $object->getDistrict(),
             'borough' => $object->getBorough(),
             'prefix' => $object->getPrefix(),

@@ -28,6 +28,12 @@ class Infrastructure
      */
     private $sports = [];
 
+    /**
+     * @ORM\Column(type="json")
+     * @SWG\Property(type="array", @SWG\Items(type="string"))
+     */
+    private $pathLogo = [];
+
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Paris", inversedBy="infrastructures")
@@ -50,6 +56,20 @@ class Infrastructure
     public function setSports(array $sports): self
     {
         $this->sports = $sports;
+
+        return $this;
+    }
+
+    public function getPathLogo(): array
+    {
+        $pathLogo = $this->pathLogo;
+
+        return array_unique($pathLogo);
+    }
+
+    public function setPathLogo(array $pathLogo): self
+    {
+        $this->pathLogo = $pathLogo;
 
         return $this;
     }
