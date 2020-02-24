@@ -40,7 +40,7 @@ class GetPriceDataCommand extends Command
         // execution de la requete pour chaque arrondissement (BOOKING)
         for ($i = 1; $i <= 20; $i++) {
             // l'url de booking, l'arguement dest_id est celui a changer pour modifier l'arrondissement
-            $url = 'https://www.booking.com/searchresults.fr.html?label=gen173nr-1FCAcoTUIVcGFyaXNfbG91dnJlLWNoYXRlbGV0SA1YBGhNiAEBmAENuAEHyAEM2AEB6AEB-AECiAIBqAIDuAL8yKjxBcACAQ&lang=fr&sid=b8474ce588f66a667360d904304722f0&sb=1&sb_lp=1&src=district&src_elem=sb&error_url=https%3A%2F%2Fwww.booking.com%2Fdistrict%2Ffr%2Fparis%2Flouvre-chatelet.fr.html%3Flabel%3Dgen173nr-1FCAcoTUIVcGFyaXNfbG91dnJlLWNoYXRlbGV0SA1YBGhNiAEBmAENuAEHyAEM2AEB6AEB-AECiAIBqAIDuAL8yKjxBcACAQ%3Bsid%3Db8474ce588f66a667360d904304722f0%3Binac%3D0%26%3B&sr_autoscroll=1&ss=1er+arr.&is_ski_area=0&ssne=1er+arr.&ssne_untouched=1er+arr.&dest_id=' . $i . '&dest_type=district&checkin_year=2020&checkin_month=6&checkin_monthday=10&checkout_year=2020&checkout_month=6&checkout_monthday=11&group_adults=1&group_children=0&no_rooms=1&b_h4u_keep_filters=&from_sf=1#frm';
+            $url = 'https://www.booking.com/searchresults.fr.html?label=gen173nr-1FCAcoTUIVcGFyaXNfbG91dnJlLWNoYXRlbGV0SA1YBGhNiAEBmAENuAEHyAEM2AEB6AEB-AECiAIBqAIDuAL8yKjxBcACAQ&lang=fr&sid=b8474ce588f66a667360d904304722f0&sb=1&sb_lp=1&src=district&src_elem=sb&error_url=https%3A%2F%2Fwww.booking.com%2Fdistrict%2Ffr%2Fparis%2Flouvre-chatelet.fr.html%3Flabel%3Dgen173nr-1FCAcoTUIVcGFyaXNfbG91dnJlLWNoYXRlbGV0SA1YBGhNiAEBmAENuAEHyAEM2AEB6AEB-AECiAIBqAIDuAL8yKjxBcACAQ%3Bsid%3Db8474ce588f66a667360d904304722f0%3Binac%3D0%26%3B&sr_autoscroll=1&ss=1er+arr.&is_ski_area=0&ssne=1er+arr.&ssne_untouched=1er+arr.&dest_id=' . $i . '&dest_type=district&checkin_year=2020&checkin_month=7&checkin_monthday=28&checkout_year=2020&checkout_month=7&checkout_monthday=29&group_adults=1&group_children=0&no_rooms=1&b_h4u_keep_filters=&from_sf=1#frm';
             $crawler =  $client->request('GET', $url);
             // $total est le cumul des prix
             $total = 0;
@@ -107,7 +107,7 @@ class GetPriceDataCommand extends Command
             $current = $this->repository->findByDistrict(75000+$i);
             $current->setAverageRestaurantPrice($total/$prices);
             $cost = $current->getCostPerDay();
-            $current->setCostPerDay($cost + $total/$prices);
+            $current->setCostPerDay($cost + $total/$prices * 2);
         }
 
         // nombre de stations de métro par arrondissement
