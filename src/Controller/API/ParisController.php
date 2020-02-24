@@ -261,7 +261,7 @@ class ParisController extends AbstractController
 
         return [
             'id' => $object->getId(),
-            'index' => $index,
+            'colorPrice' => $index,
             'district' => $object->getDistrict(),
             'borough' => $object->getBorough(),
             'prefix' => $object->getPrefix(),
