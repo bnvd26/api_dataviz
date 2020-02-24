@@ -38,20 +38,52 @@ class ParisController extends AbstractController
      */
     public function index(ParisRepository $repository, Request $request)
     {
+        // if a maximal price is set
         if ($request->query->get('maxPrice')) {
             $maxPrice = $request->query->get('maxPrice');
             $limitPrice = $maxPrice * 1.10;
             $paris = [];
             $index = 0;
 
-            // if a maximum price is set, we send boroughs in our budget
             $paris[] = $repository->findWhenCheaperThan($maxPrice);
             $paris[] = $repository->FindBetween($maxPrice, $limitPrice);
             $paris[] = $repository->findMoreExpensive($limitPrice);
             foreach ($paris as $slice) {
+                $tmp = [];
                 foreach ($slice as $details) {
-                    $formattedParis[] =
-                        $this->arrayOfParis($details, $index);
+                    $occurrencesTotal = 0;
+                    $flag = false;
+                    $data = $this->arrayOfParis($details, $index);
+
+                    // if the user has selected sports he wants to watch
+                    if ($request->query->get('sports') && $index === 0) {
+                        $sports = \explode(',', $request->query->get('sports'));
+                        $infras = \json_decode(\json_encode($data['infrastructure']), true);
+                        foreach ($infras as $infra) {
+                            $occurrences = \array_intersect($infra['sports'], $sports);
+                            $occurrencesTotal += \count($occurrences);
+                            // if there is some sports that the user wants to see in this borough we set the flag to true
+                            if (!empty($occurrences)) $flag = true;
+                        }
+                    }
+                    // if we have found sports that the user want to see in the borough we have to put it on the top in order to give him the best results
+                    if ($flag) {
+                        $tmp[] = [
+                            $data,
+                            'occurences' => $occurrencesTotal,
+                        ];
+                    } else {
+                        $formattedParis[] = $data;
+                    }
+                }
+                if ($index === 0) {
+                    // we sort the array to insert it into $formattedParis, the borough with the maxiumum occurences will be in index 0
+                    $occurrences = \array_column($tmp, 'occurences');
+                    \array_multisort($occurrences, SORT_ASC, $tmp);
+                    foreach ($tmp as $arrayTmp) {
+                        \array_unshift($formattedParis, $arrayTmp);
+                    }
+
                 }
                 $index++;
             }
