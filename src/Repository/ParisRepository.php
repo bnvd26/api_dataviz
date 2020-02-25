@@ -88,7 +88,7 @@ class ParisRepository extends ServiceEntityRepository
     {
         return $this
             ->createQueryBuilder('c')
-            ->where('c.costPerDay >= :price')
+            ->where('c.costPerDay > :price')
             ->setParameter('price', $price)
             ->orderBy('c.costPerDay', 'DESC')
             ->getQuery()
