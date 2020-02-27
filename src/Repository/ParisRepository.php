@@ -78,7 +78,7 @@ class ParisRepository extends ServiceEntityRepository
             ->where('c.costPerDay BETWEEN :price AND :limitPrice')
             ->setParameter('price', $price)
             ->setParameter('limitPrice', $limitPrice)
-            ->orderBy('c.costPerDay', 'DESC')
+            ->orderBy('c.costPerDay', 'ASC')
             ->getQuery()
             ->getResult()
             ;
@@ -90,7 +90,7 @@ class ParisRepository extends ServiceEntityRepository
             ->createQueryBuilder('c')
             ->where('c.costPerDay > :price')
             ->setParameter('price', $price)
-            ->orderBy('c.costPerDay', 'DESC')
+            ->orderBy('c.costPerDay', 'ASC')
             ->getQuery()
             ->getResult()
             ;
