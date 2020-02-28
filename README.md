@@ -26,4 +26,4 @@ Nous avons choisi de ne pas utiliser ApiPlatform car nous voulions être maître
 Système d’authentification via token JWT.
 
 <br>
-### Documentation disponible via Swagger.
+Documentation disponible via Swagger.
