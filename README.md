@@ -24,5 +24,6 @@ Nous avons choisi de ne pas utiliser ApiPlatform car nous voulions être maître
 2 controleurs, un qui gère la connexions à l’API et l’autre qui gère nos requêtes.
 1 entité qui correspond aux arrondissement, 1 autre qui correspond aux lignes de transports en commun, 1 pour les utilisateurs et la dernière pour les infrastructures.
 Système d’authentification via token JWT.
----
+
+<br>
 ### Documentation disponible via Swagger.
