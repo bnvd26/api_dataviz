@@ -7,6 +7,7 @@
  * ```bin/console doctrine:database:create```
  * ```bin/console doctrine:schema:update --force```
  * `````bin/console doctrine:fixtures:load`````
+ * `````bin/console app:getData`````
  
  Un image SQL est disponible dans un docker-compose.yml
 
