@@ -22,6 +22,11 @@ class Paris
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $district;
+    
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $polygon = []; 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -204,6 +209,20 @@ class Paris
             $this->subwayLines->removeElement($subwayLine);
             $subwayLine->removeBorough($this);
         }
+
+        return $this;
+    }
+
+    public function getPolygon(): array
+    {
+        $polygon = $this->polygon;
+
+        return $polygon;
+    }
+
+    public function setPolygon(array $polygon): self
+    {
+        $this->polygon = $polygon;
 
         return $this;
     }
