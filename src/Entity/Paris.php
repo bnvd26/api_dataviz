@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Swagger\Annotations as SWG;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParisRepository")
@@ -20,6 +23,12 @@ class Paris
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $district;
+    
+    /**
+     * @ORM\Column(type="json")
+     * @SWG\Property(type="array", @SWG\Items(type="string"))
+     */
+    private $polygon = []; 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -29,17 +38,43 @@ class Paris
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $countHotel;
+    private $prefix;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $latitude;
+    private $averageHotelPrice;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $longitude;
+    private $AverageRestaurantPrice;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $costPerDay;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $subwayStationsNumber;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Infrastructure", mappedBy="place")
+     */
+    private $infrastructures;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\SubwayLine", mappedBy="boroughs")
+     */
+    private $subwayLines;
+
+    public function __construct()
+    {
+        $this->infrastructures = new ArrayCollection();
+        $this->subwayLines = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -70,40 +105,127 @@ class Paris
         return $this;
     }
 
-    public function getCountHotel(): ?string
+    public function getPrefix(): ?string
     {
-        return $this->countHotel;
+        return $this->prefix;
     }
 
-    public function setCountHotel(?string $countHotel): self
+    public function setPrefix(?string $prefix): self
     {
-        $this->countHotel = $countHotel;
+        $this->prefix = $prefix;
 
         return $this;
     }
 
-    public function getLatitude(): ?string
+    public function getAverageHotelPrice(): ?int
     {
-        return $this->latitude;
+        return $this->averageHotelPrice;
     }
 
-    public function setLatitude(?string $latitude): self
+    public function setAverageHotelPrice(?int $averageHotelPrice): self
     {
-        $this->latitude = $latitude;
+        $this->averageHotelPrice = $averageHotelPrice;
+        return $this;
+    }
+    /**
+     * @return Collection|Infrastructure[]
+     */
+    public function getInfrastructures(): Collection
+    {
+        return $this->infrastructures;
+    }
+
+    public function addInfrastructure(Infrastructure $infrastructure): self
+    {
+        if (!$this->infrastructures->contains($infrastructure)) {
+            $this->infrastructures[] = $infrastructure;
+            $infrastructure->setPlace($this);
+        }
+    }
+
+    public function getAverageRestaurantPrice(): ?int
+    {
+        return $this->AverageRestaurantPrice;
+    }
+
+    public function setAverageRestaurantPrice(?int $AverageRestaurantPrice): self
+    {
+        $this->AverageRestaurantPrice = $AverageRestaurantPrice;
 
         return $this;
     }
 
-    public function getLongitude(): ?string
+    public function getSubwayStationsNumber(): ?int
     {
-        return $this->longitude;
+        return $this->subwayStationsNumber;
     }
 
-    public function setLongitude(?string $longitude): self
+    public function setSubwayStationsNumber(?int $subwayStationsNumber): self
     {
-        $this->longitude = $longitude;
+        $this->subwayStationsNumber = $subwayStationsNumber;
+        return $this;
+    }
+
+    public function getCostPerDay(): ?int
+    {
+        return $this->costPerDay;
+    }
+
+    public function setCostPerDay(?int $costPerDay): void
+    {
+        $this->costPerDay = $costPerDay;
+    }
+
+    public function removeInfrastructure(Infrastructure $infrastructure): self
+    {
+        if ($this->infrastructures->contains($infrastructure)) {
+            $this->infrastructures->removeElement($infrastructure);
+            // set the owning side to null (unless already changed)
+            if ($infrastructure->getPlace() === $this) {
+                $infrastructure->setPlace(null);
+            }
+        }
+    }
+
+    /**
+     * @return Collection|SubwayLine[]
+     */
+    public function getSubwayLines(): Collection
+    {
+        return $this->subwayLines;
+    }
+
+    public function addSubwayLine(SubwayLine $subwayLine): self
+    {
+        if (!$this->subwayLines->contains($subwayLine)) {
+            $this->subwayLines[] = $subwayLine;
+            $subwayLine->addBorough($this);
+        }
 
         return $this;
     }
 
+    public function removeSubwayLine(SubwayLine $subwayLine): self
+    {
+        if ($this->subwayLines->contains($subwayLine)) {
+            $this->subwayLines->removeElement($subwayLine);
+            $subwayLine->removeBorough($this);
+        }
+
+        return $this;
+    }
+
+    public function getPolygon(): array
+    {
+        $polygon = $this->polygon;
+
+        return $polygon;
+    }
+
+    public function setPolygon(array $polygon): self
+    {
+        $this->polygon = $polygon;
+
+        return $this;
+    }
 }
