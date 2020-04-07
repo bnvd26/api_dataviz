@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Swagger\Annotations as SWG;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParisRepository")
@@ -25,6 +26,7 @@ class Paris
     
     /**
      * @ORM\Column(type="json")
+     * @SWG\Property(type="array", @SWG\Items(type="string"))
      */
     private $polygon = []; 
 

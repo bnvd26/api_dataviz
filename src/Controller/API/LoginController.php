@@ -26,6 +26,6 @@ class LoginController extends AbstractController
 
         return new Response([
             'username' => $user->getUsername(),
-        ]);
+        ], 200);
     }
 }
