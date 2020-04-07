@@ -107,6 +107,8 @@ class ParisController extends AbstractController
 
         $response = new JsonResponse($formattedParis);
 
+	$response->setStatusCode(Response::HTTP_OK);
+
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Swagger\Annotations as SWG;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParisRepository")
@@ -22,6 +23,12 @@ class Paris
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $district;
+    
+    /**
+     * @ORM\Column(type="json")
+     * @SWG\Property(type="array", @SWG\Items(type="string"))
+     */
+    private $polygon = []; 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -204,6 +211,20 @@ class Paris
             $this->subwayLines->removeElement($subwayLine);
             $subwayLine->removeBorough($this);
         }
+
+        return $this;
+    }
+
+    public function getPolygon(): array
+    {
+        $polygon = $this->polygon;
+
+        return $polygon;
+    }
+
+    public function setPolygon(array $polygon): self
+    {
+        $this->polygon = $polygon;
 
         return $this;
     }
